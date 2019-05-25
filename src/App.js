@@ -34,37 +34,14 @@ class App extends Component {
     })
   }
 
-  handleRemoveTask(task_id) {
-    var aux_task_list = tasks.filter((e) => {
-      return e.id !== task_id
-    })
-    console.log(`Task to remove: ${task_id}`);
+  handleRemoveTask(new_tasks_list) {
+    console.log(`All tasks: ${ {tasks} }`)
     this.setState({
-      tasks: aux_task_list
+      tasks: new_tasks_list
     })
-    console.log()
   }
 
   render() {
-    const tasks_tarjets = this.state.tasks.map((task, i) => {
-      return (
-        <div className="col-md-4">
-          <div className="card mt-4">
-            <div className="card-header">
-              <h3>{task.title}</h3>
-              <span className="badge badge-pill badge-danger ml-2">
-                {task.priority}
-              </span>
-            </div>
-            <div className="card-body">
-              <p>{task.description}</p>
-              <footer className="font-weight-bold">{task.responsible}</footer>
-            </div>
-          </div>
-        </div>
-      );
-    })
-
     return (
       <div className="App">
         <Navbar num_tasks={this.state.tasks.length} />
@@ -77,7 +54,7 @@ class App extends Component {
           <div className="row mt-4 mb-4">
             <TaskList
               tasks={this.state.tasks}
-              removeFunction={this.handleRemoveTask} />
+              handleRemoveTask={this.handleRemoveTask} />
           </div>
         </div>
         <NewTaskForm onAddTask={this.handleAddTask} />

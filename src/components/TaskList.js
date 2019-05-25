@@ -4,8 +4,14 @@ class TaskList extends Component {
     constructor() {
         super();
         this.state = {
-            tasks: {}
         }
+    }
+
+    handleRemove(task_id) {
+        var aux_tasks_list = this.props.tasks.filter((e) => {
+            return e.id !== task_id
+        })
+        this.props.handleRemoveTask(aux_tasks_list);
     }
 
     render() {
@@ -28,8 +34,8 @@ class TaskList extends Component {
                         <div className="card-footer">
                             <button
                                 className="btn btn-danger"
-                                onClick={ () => this.props.removeFunction(task.id)}>
-                                {task.id}
+                                onClick={ () => this.handleRemove(task.id)}>
+                                Remove
                             </button>
                         </div>
                     </div>
