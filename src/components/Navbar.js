@@ -5,9 +5,9 @@ class Navbar extends Component {
         return(
             <div>
                 <nav className="navbar navbar-dark bg-dark">
-                    <a href="/" className="text-white">
-                        Nº Tareas<span className="badge badge-pill badge-light ml-2">{this.props.num_tasks }</span>
-                    </a>
+                    <span className="text-white">
+                        Number of Tasks<span className="badge badge-pill badge-light ml-2">{this.props.num_tasks }</span>
+                    </span>
                 </nav>
             </div>
         );

@@ -3,7 +3,6 @@ import logo from './logo.svg';
 import './App.css';
 import Navbar from './components/Navbar';
 import NewTaskForm from './components/NewTaskForm';
-import AdobeAccessToken from './AdobeAccessToken';
 import TaskList from './components/TaskList'
 import { tasks } from './tasks.json';
 
@@ -14,8 +13,6 @@ class App extends Component {
       title: 'Tasks App',
       tasks
     }
-    var actual_tasks_list = this.state.tasks;
-
     this.handleAddTask = this.handleAddTask.bind(this)
     this.handleRemoveTask = this.handleRemoveTask.bind(this)
   }

@@ -28,7 +28,7 @@ class NewTaskForm extends Component {
 
     render() {
         return (
-            <div className="col-md-6 mx-auto mt-2 mb-2">
+            <div className="col-md-4 mx-auto mt-2 mb-2">
                 <div className="card">
                     <div className="card-header">
                         <h3>Create a new Task</h3>

@@ -17,7 +17,8 @@ class TaskList extends Component {
     render() {
         const tasks_list = this.props.tasks.map((task, i) => {
             return (
-                <div className="col-md-4">
+                <div className="col-md-4"
+                key={task.id}>
                     <div className="card mt-4">
                         <div className="card-header">
                             <h3>{task.title}</h3>

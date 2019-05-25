@@ -20,13 +20,6 @@
             "description": "Eat",
             "priority": "high",
             "id":"1234EFGH"
-        },
-        {
-            "title": "Task 4",
-            "responsible": "Javi",
-            "description": "Sleep",
-            "priority": "high",
-            "id":"5678EFGH"
         }
     ] 
 }
