@@ -1,0 +1,32 @@
+{
+    "tasks": [
+        {
+            "title": "Task 1",
+            "responsible": "Javi",
+            "description": "Do something",
+            "priority": "low",
+            "id":"1234ABCD"
+        },
+        {
+            "title": "Task 2",
+            "responsible": "Javi",
+            "description": "shower",
+            "priority": "medium",
+            "id":"5678ABCD"
+        },
+        {
+            "title": "Task 3",
+            "responsible": "Javi",
+            "description": "Eat",
+            "priority": "high",
+            "id":"1234EFGH"
+        },
+        {
+            "title": "Task 4",
+            "responsible": "Javi",
+            "description": "Sleep",
+            "priority": "high",
+            "id":"5678EFGH"
+        }
+    ] 
+}
