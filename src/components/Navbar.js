@@ -13,7 +13,13 @@ class Navbar extends Component {
         this.handleLogout = this.handleLogout.bind(this);
     }
 
-    componentWillMount() {
+    /* componentDidMount() explicacion 
+    En esta función incluimos todos los "fetch"
+    que tengamos que hacer. Si se llama de inicio con el 1r
+    render, no devolverá el estado así que si usamos algo de aqui
+    habra que inicializarlo antes del fetch o usaremos algo sin definir
+    en nuestro primer render(), generando errores.*/
+    componentDidMount() {
         firebase.auth().onAuthStateChanged((user) => {
             this.setState({
                 user: user

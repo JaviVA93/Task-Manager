@@ -18,20 +18,30 @@ class App extends Component {
     this.state = {
       title: 'Tasks App',
       tasks,
-      fb_tasks: {}
+      fb_tasks: []
     };
-    
+
     this.handleAddTask = this.handleAddTask.bind(this)
     this.handleRemoveTask = this.handleRemoveTask.bind(this)
   }
 
   componentDidMount() {
     this.database.on('value', snap => {
+      var aux_fb_tasks = [];
+      Object.keys(snap.val()).forEach((key) => {
+        aux_fb_tasks.push({
+          title: snap.val()[key].title,
+          responsible: snap.val()[key].responsible,
+          description: snap.val()[key].description,
+          priority: snap.val()[key].priority,
+          id: key
+        })
+      });
       this.setState({
-        fb_tasks: snap.val()
+        fb_tasks: aux_fb_tasks
       });
     });
-    
+
   }
 
   handleAddTask(task) {
@@ -40,18 +50,29 @@ class App extends Component {
       title: task.task_title,
       responsible: task.task_responsible,
       description: task.task_description,
-      priority: task.task_priority,
-      id: new_id.toString()
-    }
-    this.setState({
-      tasks: [...this.state.tasks, new_task]
-    })
+      priority: task.task_priority
+    };
+
+    var updates = {};
+    updates['/tasks/' + new_id.toString()] = new_task;
+    firebase.database().ref().update(updates)
+      .then((result) => {
+        console.log(`New task added!`);
+      })
+      .catch((error) => {
+        console.log(`An error occurred adding a new task: ${error}`);
+      })
+
   }
 
-  handleRemoveTask(new_tasks_list) {
-    this.setState({
-      tasks: new_tasks_list
-    })
+  handleRemoveTask(task_id) {
+    firebase.database().ref('tasks/' + task_id).remove()
+      .then( (response) => {
+        console.log(`Task removed: ${response}`);
+      })
+      .catch( (error) => {
+        console.log(`An error occurred removing a task: ${error}`)
+      })
   }
 
   render() {
