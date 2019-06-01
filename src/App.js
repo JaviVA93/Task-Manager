@@ -78,7 +78,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Navbar num_tasks={this.state.tasks.length} />
+        <Navbar num_tasks={this.state.fb_tasks.length} />
         <img src={logo} className="App-logo" alt="logo" />
         <h1 className="text-white">
           {this.state.title}

@@ -75,17 +75,16 @@ class Navbar extends Component {
 
     render() {
         return (
-            <div className="row bg-dark pt-2 pb-2 justify-content-between">
-                <div className="col-4 align-middle">
-                    <span className="text-white">
-                        Number of Tasks<span className="badge badge-pill badge-light ml-2">{this.props.num_tasks}</span>
-                    </span>
+            <div className="navbar navbar-dark bg-dark">
+                <div>
+                    <span className="text-white">Number of Tasks</span>
+                    <span className="badge badge-pill badge-light ml-2">{this.props.num_tasks}</span>
                 </div>
-                <div className="col-4">
+                <div>
                     {this.renderLoginButton()}
                 </div>
             </div>
-        );
+        )
     }
 }
 
