@@ -85,7 +85,7 @@ class App extends Component {
     //Si <childData> no es "null" entonces hay información de usuario,
     //el usuario se ha logeado, y hay que actualizar la info de user
     //Y también cargar las tareas de dicho usuario.
-    if(childData !== null) {
+    if (childData !== null) {
       this.setState({ user: childData });
       let user_for_db = this.state.user.email.replace(/\./g, "-");
       this.database = this.app.database().ref().child('tasks/' + user_for_db);
@@ -134,8 +134,8 @@ class App extends Component {
                 user={this.state.user} />
             </div>
           </div>
-          <NewTaskForm 
-            onAddTask={this.handleAddTask} 
+          <NewTaskForm
+            onAddTask={this.handleAddTask}
             user={this.state.user} />
         </div>
       </div>

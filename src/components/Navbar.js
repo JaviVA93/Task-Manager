@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import firebase from 'firebase'
+import firebase from 'firebase';
+import { Spring } from 'react-spring/renderprops';
 
 class Navbar extends Component {
     constructor() {
@@ -83,15 +84,23 @@ class Navbar extends Component {
 
     render() {
         return (
-            <div className="navbar navbar-dark bg-dark">
-                <div>
-                    <span className="text-white">Number of Tasks</span>
-                    <span className="badge badge-pill badge-light ml-2">{this.props.num_tasks}</span>
-                </div>
-                <div>
-                    {this.renderLoginButton()}
-                </div>
-            </div>
+            <Spring
+                from={{ opacity: 0 }}
+                to={{ opacity: 1 }}
+                config={{delay: 250, duration: 1000}}
+            >
+                {props =>
+                    <div className="navbar navbar-dark bg-dark" style={props}>
+                        <div>
+                            <span className="text-white">Number of Tasks</span>
+                            <span className="badge badge-pill badge-light ml-2">{this.props.num_tasks}</span>
+                        </div>
+                        <div>
+                            {this.renderLoginButton()}
+                        </div>
+                    </div>
+                }
+            </Spring>
         )
     }
 }
