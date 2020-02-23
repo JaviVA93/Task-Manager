@@ -7,11 +7,23 @@ class NewTaskForm extends Component {
             task_title: 'not set',
             task_responsible: 'not set',
             task_description: 'not set',
-            task_priority: 'low'
+            task_priority: 'low',
+            submit_disabled: true
         }
         this.handleInputs = this.handleInputs.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
+
+    componentWillReceiveProps(next_props) {
+        this.setState({ user: next_props.user });
+        if(next_props.user.email) {
+            this.setState({submit_disabled: false});
+        }
+        else {
+            this.setState({submit_disabled: true});
+        }
+    }
+
 
     handleInputs(e) {
         const { value, name } = e.target;
@@ -70,7 +82,8 @@ class NewTaskForm extends Component {
                                 <option>High</option>
                             </select>
                         </div>
-                        <button className="btn btn-danger">Save</button>
+                        <button className="btn btn-danger"
+                         disabled={this.state.submit_disabled}>Save</button>
                     </form>
                 </div>
             </div>

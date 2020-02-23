@@ -22,8 +22,6 @@ class App extends Component {
     };
 
     this.app = firebase.initializeApp(DB_CONFIG);
-    //let user_for_db = this.state.user.email.replace(/\./g, "-");
-    //this.database = this.app.database().ref().child('tasks/' + user_for_db);
 
     this.handleAddTask = this.handleAddTask.bind(this)
     this.handleRemoveTask = this.handleRemoveTask.bind(this)
@@ -84,11 +82,13 @@ class App extends Component {
   }
 
   setUserCallback(childData) {
+    //Si <childData> no es "null" entonces hay información de usuario,
+    //el usuario se ha logeado, y hay que actualizar la info de user
+    //Y también cargar las tareas de dicho usuario.
     if(childData !== null) {
       this.setState({ user: childData });
       let user_for_db = this.state.user.email.replace(/\./g, "-");
       this.database = this.app.database().ref().child('tasks/' + user_for_db);
-      console.log(this.state.user);
       if (typeof this.database !== "undefined") {
         this.database.on('value', snap => {
           var aux_fb_tasks = [];
@@ -107,8 +107,10 @@ class App extends Component {
         });
       }
     }
+    //Si <childData> es "null" quiere decir que se ha hecho logout
+    //actualizar la info del usuario a un usuario vacío.
     else {
-      
+      this.setState({ user: {} });
     }
   }
 
@@ -124,7 +126,7 @@ class App extends Component {
             {this.state.title}
           </h1>
           <div className="container">
-            <div className="row mt-4 mb-4">
+            <div className="row mt-4 mb-4 justify-content-center">
               <TaskList
                 tasks={this.state.tasks}
                 handleRemoveTask={this.handleRemoveTask}
@@ -132,7 +134,9 @@ class App extends Component {
                 user={this.state.user} />
             </div>
           </div>
-          <NewTaskForm onAddTask={this.handleAddTask} />
+          <NewTaskForm 
+            onAddTask={this.handleAddTask} 
+            user={this.state.user} />
         </div>
       </div>
     );

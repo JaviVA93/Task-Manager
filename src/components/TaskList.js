@@ -19,6 +19,9 @@ class TaskList extends Component {
                 return (
                     <div className="mx-auto">
                         <img src={triangles} alt="Loading tasks..." />
+                        <h2>
+                            Loading
+                        </h2>
                     </div>
                 );
             } else {
@@ -54,11 +57,10 @@ class TaskList extends Component {
             }
         }
         else {
-            console.log(this.props.user);
             return (
                 <div className="mx-auto">
                     <h2>
-                        Debes iniciar sesión para ver tus tareas.
+                        You must be logged to see your tasks.
                     </h2>
                 </div>
             );
