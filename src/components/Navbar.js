@@ -20,10 +20,18 @@ class Navbar extends Component {
     habra que inicializarlo antes del fetch o usaremos algo sin definir
     en nuestro primer render(), generando errores.*/
     componentDidMount() {
-        firebase.auth().onAuthStateChanged((user) => {
-            this.setState({
-                user: user
-            });
+        firebase.auth().onAuthStateChanged((user_from_db) => {
+            if (user_from_db !== null) {
+                this.setState({
+                    user: user_from_db
+                });
+            }
+            else {
+                this.setState({
+                    user: null
+                });
+            }
+            this.props.setUserCallback(this.state.user);
         });
     }
 

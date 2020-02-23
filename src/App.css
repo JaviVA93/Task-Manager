@@ -1,10 +1,13 @@
 .App {
+}
+
+.App-center {
   text-align: center;
 }
 
 .App-logo {
   animation: App-logo-spin infinite 50s linear;
-  height: 40vmin;
+  height: 15vmin;
   pointer-events: none;
 }
 
