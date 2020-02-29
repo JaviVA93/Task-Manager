@@ -82,6 +82,7 @@ class App extends Component {
   }
 
   setUserCallback(childData) {
+    console.log(`Dentro del setUserCallback\n Valor del childData = ${childData}`)
     //Si <childData> no es "null" entonces hay información de usuario,
     //el usuario se ha logeado, y hay que actualizar la info de user
     //Y también cargar las tareas de dicho usuario.
@@ -119,7 +120,8 @@ class App extends Component {
       <div className="App">
         <Navbar
           num_tasks={this.state.fb_tasks.length}
-          setUserCallback={this.setUserCallback} />
+          setUserCallback={this.setUserCallback}
+          user={this.state.user} />
         <div className="App-center">
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="text-white">
@@ -134,9 +136,11 @@ class App extends Component {
                 user={this.state.user} />
             </div>
           </div>
-          <NewTaskForm
-            onAddTask={this.handleAddTask}
-            user={this.state.user} />
+          {typeof this.state.user.email !== "undefined" &&
+            <NewTaskForm
+              onAddTask={this.handleAddTask}
+              user={this.state.user}
+            />}
         </div>
       </div>
     );
