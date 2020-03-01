@@ -7,11 +7,12 @@ function TaskList(props) {
     const [tasks, setTasks] = useState(0);
     const [user, setUser] = useState({});
 
+
     useEffect(() => {
         setTasks(0);
         setUser({})
     }, [])
-    
+
     useEffect(() => {
         setTasks(props.fb_tasks);
     }, [props.fb_tasks])
@@ -29,8 +30,26 @@ function TaskList(props) {
     //Si me deslogeo eliminar tareas!!!
 
 
-    function handleRemoveTask(task_id){
+    function handleRemoveTask(task_id) {
         props.handleRemoveTask(task_id);
+    }
+
+
+
+    function getCardColor(taskPriority) {
+        let task_priority = taskPriority || "";
+        let card_color = "";
+        if (task_priority === "High") {
+            card_color = "linear-gradient(to right, #B70B0B, #F80B0B, #B70B0B)";
+        }
+        else if (task_priority === "Medium") {
+            card_color = "linear-gradient(to right, #DC6D13, #ED8835, #DC6D13)";
+        }
+        else {
+            card_color = "linear-gradient(to right, #0A47CB, #2C6AF1, #0A47CB)";
+        }
+
+        return card_color;
     }
 
     //Esta condición está mal hecha y siempre 
@@ -55,15 +74,16 @@ function TaskList(props) {
                     to={{ opacity: 1, transform: 'translate3d(0,0px,0)' }}
                     config={{ duration: 1000 }}
                 >
-                    {task => props =>
+                    {task => attributes =>
                         <div className="col-md-4"
                             key={task.id}
-                            style={props}
+                            style={attributes}
                         >
                             <div className="card mt-4">
                                 <div className="card-header">
                                     <h3>{task.title}</h3>
-                                    <span className="badge badge-pill badge-danger ml-2">
+                                    <span className="badge badge-pill badge-danger ml-2"
+                                        style={{ 'backgroundImage': getCardColor(task.priority) }}>
                                         {task.priority}
                                     </span>
                                 </div>
@@ -75,10 +95,15 @@ function TaskList(props) {
                                 </div>
                                 <div className="card-footer">
                                     <button
-                                        className="btn btn-danger"
-                                        onClick={() => {handleRemoveTask(task.id)}}>
+                                        className="btn btn-danger mx-1"
+                                        onClick={() => { handleRemoveTask(task.id) }}>
                                         Remove
-                                </button>
+                                    </button>
+                                    <button
+                                        className="btn btn-success mx-1"
+                                        onClick={() => { props.handleDoneTask(task) }}>
+                                        Done
+                                    </button>
                                 </div>
                             </div>
                         </div>

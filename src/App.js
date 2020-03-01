@@ -25,6 +25,7 @@ class App extends Component {
 
     this.handleAddTask = this.handleAddTask.bind(this)
     this.handleRemoveTask = this.handleRemoveTask.bind(this)
+    this.handleDoneTask = this.handleDoneTask.bind(this)
     this.setUserCallback = this.setUserCallback.bind(this)
   }
 
@@ -32,15 +33,17 @@ class App extends Component {
     if (typeof this.database !== "undefined") {
       this.database.on('value', snap => {
         var aux_fb_tasks = [];
-        Object.keys(snap.val()).forEach((key) => {
-          aux_fb_tasks.push({
-            title: snap.val()[key].title,
-            responsible: snap.val()[key].responsible,
-            description: snap.val()[key].description,
-            priority: snap.val()[key].priority,
-            id: key
-          })
-        });
+        if(snap.val()) {
+          Object.keys(snap.val()).forEach((key) => {
+            aux_fb_tasks.push({
+              title: snap.val()[key].title,
+              responsible: snap.val()[key].responsible,
+              description: snap.val()[key].description,
+              priority: snap.val()[key].priority,
+              id: key
+            })
+          });
+        }
         this.setState({
           fb_tasks: aux_fb_tasks
         });
@@ -81,6 +84,18 @@ class App extends Component {
       })
   }
 
+  handleDoneTask(task) {
+    console.log(task);
+    let user_for_fb = this.state.user.email.replace(/\./g, "-");
+    firebase.database().ref('tasks/' + user_for_fb + '/' + task.id).update({'taskDone': 'true'})
+      .then((response) => {
+        console.log(`Task Done!`);
+      })
+      .catch((error) => {
+        console.log(`An error occurred removing a task: ${error}`)
+      })
+  }
+
   setUserCallback(childData) {
     console.log(`Dentro del setUserCallback\n Valor del childData = ${childData}`)
     //Si <childData> no es "null" entonces hay información de usuario,
@@ -93,15 +108,17 @@ class App extends Component {
       if (typeof this.database !== "undefined") {
         this.database.on('value', snap => {
           var aux_fb_tasks = [];
-          Object.keys(snap.val()).forEach((key) => {
-            aux_fb_tasks.push({
-              title: snap.val()[key].title,
-              responsible: snap.val()[key].responsible,
-              description: snap.val()[key].description,
-              priority: snap.val()[key].priority,
-              id: key
-            })
-          });
+          if(snap.val()) {
+            Object.keys(snap.val()).forEach((key) => {
+              aux_fb_tasks.push({
+                title: snap.val()[key].title,
+                responsible: snap.val()[key].responsible,
+                description: snap.val()[key].description,
+                priority: snap.val()[key].priority,
+                id: key
+              })
+            });
+          }
           this.setState({
             fb_tasks: aux_fb_tasks
           });
@@ -132,6 +149,7 @@ class App extends Component {
               <TaskList
                 tasks={this.state.tasks}
                 handleRemoveTask={this.handleRemoveTask}
+                handleDoneTask={this.handleDoneTask}
                 fb_tasks={this.state.fb_tasks}
                 user={this.state.user} />
             </div>
