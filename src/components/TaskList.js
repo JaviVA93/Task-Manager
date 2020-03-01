@@ -6,7 +6,7 @@ import { Trail } from 'react-spring/renderprops'
 function TaskList(props) {
     const [tasks, setTasks] = useState(0);
     const [user, setUser] = useState({});
-
+    const [tasksToDo, setTasksToDo] = useState([])
 
     useEffect(() => {
         setTasks(0);
@@ -15,11 +15,23 @@ function TaskList(props) {
 
     useEffect(() => {
         setTasks(props.fb_tasks);
+        setTasksToDo(filterTasksToDo(props.fb_tasks));
     }, [props.fb_tasks])
 
     useEffect(() => {
         setUser(props.user);
     }, [props.user])
+
+    function filterTasksToDo(_tasks){
+        let tasks_todo = [];
+        _tasks.forEach((task) => {
+            let taskDone = task.taskDone || ""
+            if(task.taskDone === "false"){
+                tasks_todo.push(task);
+            }
+        })
+        return tasks_todo;
+    }
 
     //hacer un selector de color para las tarjetas con las tareas
 
@@ -55,8 +67,7 @@ function TaskList(props) {
     //Esta condición está mal hecha y siempre 
     //te muestra como usuario logeado.
     if (typeof user.email !== "undefined") {
-        console.log(user);
-        if (tasks.length === 0) {
+        if (tasksToDo.length === 0) {
             return (
                 <div className="mx-auto">
                     <img src={triangles} alt="Loading tasks..." />
@@ -68,7 +79,7 @@ function TaskList(props) {
         } else {
             return (
                 <Trail
-                    items={tasks}
+                    items={tasksToDo}
                     keys={tasks.map((_, i) => i)}
                     from={{ opacity: 0, transform: 'translate3d(-660px,0px,0)' }}
                     to={{ opacity: 1, transform: 'translate3d(0,0px,0)' }}

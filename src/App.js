@@ -3,7 +3,8 @@ import logo from './logo.svg';
 import './App.css';
 import Navbar from './components/Navbar';
 import NewTaskForm from './components/NewTaskForm';
-import TaskList from './components/TaskList'
+import TaskList from './components/TaskList';
+import TasksDoneList from './components/TasksDoneList';
 import { tasks } from './tasks.json';
 import firebase from 'firebase';
 import { DB_CONFIG } from './FirbaseConfig'
@@ -40,6 +41,7 @@ class App extends Component {
               responsible: snap.val()[key].responsible,
               description: snap.val()[key].description,
               priority: snap.val()[key].priority,
+              taskDone: snap.val()[key].taskDone,
               id: key
             })
           });
@@ -57,7 +59,8 @@ class App extends Component {
       title: task.task_title,
       responsible: task.task_responsible,
       description: task.task_description,
-      priority: task.task_priority
+      priority: task.task_priority,
+      taskDone: task.task_done
     };
 
     let updates = {};
@@ -115,6 +118,7 @@ class App extends Component {
                 responsible: snap.val()[key].responsible,
                 description: snap.val()[key].description,
                 priority: snap.val()[key].priority,
+                taskDone: snap.val()[key].taskDone,
                 id: key
               })
             });
@@ -159,6 +163,10 @@ class App extends Component {
               onAddTask={this.handleAddTask}
               user={this.state.user}
             />}
+        </div>
+
+        <div className="row">
+          <TasksDoneList />
         </div>
       </div>
     );

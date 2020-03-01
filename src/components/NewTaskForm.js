@@ -8,6 +8,7 @@ class NewTaskForm extends Component {
             task_responsible: 'not set',
             task_description: 'not set',
             task_priority: 'low',
+            task_done: 'false',
             submit_disabled: true
         }
         this.handleInputs = this.handleInputs.bind(this);

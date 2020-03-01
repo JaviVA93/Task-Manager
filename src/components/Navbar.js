@@ -22,10 +22,6 @@ function Navbar(props) {
         });
     }, [])
 
-    useEffect(() => {
-        console.log(user)
-    })
-
     function handleLogin() {
         const provider = new firebase.auth.GoogleAuthProvider();
 
