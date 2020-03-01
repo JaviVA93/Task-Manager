@@ -33,20 +33,9 @@ function TaskList(props) {
         return tasks_todo;
     }
 
-    //hacer un selector de color para las tarjetas con las tareas
-
-
-    //Si me deslogeo eliminar tareas!!!
-    //Si me deslogeo eliminar tareas!!!
-    //Si me deslogeo eliminar tareas!!!
-    //Si me deslogeo eliminar tareas!!!
-
-
     function handleRemoveTask(task_id) {
         props.handleRemoveTask(task_id);
     }
-
-
 
     function getCardColor(taskPriority) {
         let task_priority = taskPriority || "";
@@ -64,8 +53,6 @@ function TaskList(props) {
         return card_color;
     }
 
-    //Esta condición está mal hecha y siempre 
-    //te muestra como usuario logeado.
     if (typeof user.email !== "undefined") {
         if (tasksToDo.length === 0) {
             return (
@@ -80,7 +67,7 @@ function TaskList(props) {
             return (
                 <Trail
                     items={tasksToDo}
-                    keys={tasks.map((_, i) => i)}
+                    keys={tasksToDo.map((_, i) => i)}
                     from={{ opacity: 0, transform: 'translate3d(-660px,0px,0)' }}
                     to={{ opacity: 1, transform: 'translate3d(0,0px,0)' }}
                     config={{ duration: 1000 }}
