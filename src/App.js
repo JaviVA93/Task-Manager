@@ -170,12 +170,9 @@ const App = () => {
             <div className="container">
               <div className="mt-5 col-md-8 mx-auto justify-content-center">
                 <TasksDoneList
+                  handleRemoveAllTasksDone={handleRemoveAllTasksDone}
                   tasks_done={filterTasksDone()} />
-                <button 
-                  className="mt-3 btn btn-outline-info"
-                  onClick={() => {handleRemoveAllTasksDone()}}>
-                  Remove completed tasks.                  
-                </button>
+                
               </div>
             </div>
           </div>}
